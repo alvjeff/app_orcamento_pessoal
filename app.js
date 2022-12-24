@@ -7,8 +7,40 @@ class Despesa{
         this.descricao = descricao
         this.valor = valor
     }
+
+    validarDados{
+
+    }
 }
 
+//classe criada depois para armazenar indices dinamicos
+class Bd{
+
+    constructor(){
+        let id = localStorage.getItem('id')
+
+        if(id == null){
+            localStorage.setItem('id', 0)
+        }
+    }
+
+    
+    gravar(d){
+        
+        let id = this.getProximoId()
+        localStorage.setItem(id, JSON.stringify(d)) //nao me lembro o pq
+        localStorage.setItem('id', id)
+    }
+
+    getProximoId(){
+        let proximoId = localStorage.getItem('id') //inicialmente o valor sera null
+        //console.log(parseInt(proximoId) + 1)
+        return parseInt(proximoId) + 1
+    }
+}
+
+//intancia da classe Bd para guardar indices dinamicos
+let bd = new Bd()
 
 function cadastrarDespesa(){
     
@@ -28,10 +60,10 @@ function cadastrarDespesa(){
         valor.value
     )
 
-    //console.log(despesa)
-    gravar(despesa)
+    despesa.validarDados()
+
+    bd.gravar(despesa)
 }
 
-function gravar(d){
-    localStorage.setItem('despesa', JSON.stringify(d))
-}
+
+

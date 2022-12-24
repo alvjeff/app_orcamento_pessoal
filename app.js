@@ -8,8 +8,15 @@ class Despesa{
         this.valor = valor
     }
 
-    validarDados{
+    validarDados(){
+        for(let i in this){
+            //console.log(i, this[i]) //mostra o atribulo e seu respectivo valor
+            if(this[i] == undefined || this[i] == '' || this[i] == null){
+                return false
+            }
+        }
 
+        return true //se passar pelo if acima se nenhum for atendido, vai retornar true
     }
 }
 
@@ -60,9 +67,19 @@ function cadastrarDespesa(){
         valor.value
     )
 
-    despesa.validarDados()
+    if(despesa.validarDados()){
+        //se true
+       // bd.gravar(despesa) //dialog de sucesso
+       console.log('dados válidos')
+    } else {
+        //se false
+        //dialog de erro
+        console.log('dados inválidos')
 
-    bd.gravar(despesa)
+    }
+    
+
+   
 }
 
 
